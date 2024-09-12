@@ -10,12 +10,13 @@ const ProjectCard = ({ project }) => {
   };
 
   return (
-    <tr>
-      <td>{project.title}</td>
-      <td>{project.languages}</td>
-      <td>{project.members_count}</td>
-      <td><Button variant="info" onClick={goToDetail}>Learn More</Button></td>
-    </tr>
+    <div className="card">
+      <h4 className="card-title">{project.title}</h4>
+      <p>{project.languages}</p>
+      <p>Purpose: {project.purpose}</p>
+      <p>Member Count: {project.member_count}</p>
+      <Button onClick={goToDetail}>Learn More</Button>
+    </div>
   );
 };
 

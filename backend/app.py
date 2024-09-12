@@ -1,47 +1,27 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from models import db, Project, Member
+from models import db
 from config import Config
 
+# Create Flask app
 app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/mtc'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(Config)
 
-
+# Initialize extensions
 db.init_app(app)
+jwt = JWTManager(app)
+CORS(app)
 
-@app.route('/api/projects', methods=['GET'])
-def get_projects():
-    projects = Project.query.all()
-    project_list = []
+# Import routes
+from routes.auth import auth_bp
+from routes.project import project_bp
 
-    for project in projects:
-        project_data = {
-            'id': project.id,
-            'title': project.title,
-            'description': project.description,
-            'languages': project.languages,
-            'members_count': len(project.members)
-        }
-        project_list.append(project_data)
+# Register Blueprints
+app.register_blueprint(auth_bp, url_prefix='/api/auth')
+app.register_blueprint(project_bp, url_prefix='/api/projects')
 
-    return jsonify(project_list)
-
-@app.route('/api/projects/<int:id>', methods=['GET'])
-def get_project(id):
-    project = Project.query.get_or_404(id)
-    project_data = {
-        'id': project.id,
-        'title': project.title,
-        'description': project.description,
-        'languages': project.languages,
-        'members': [{'name': member.name, 'role': member.role, 'email': member.email} for member in project.members],
-        'members_count': len(project.members)
-    }
-    return jsonify(project_data)
-
-
+# Run the app
 if __name__ == '__main__':
     app.run(debug=True)

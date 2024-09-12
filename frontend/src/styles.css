@@ -1,0 +1,300 @@
+/* Font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #8b0000, #3b0000);  /* Modify gradient as needed */
+  background-size: cover;  /* Ensure it covers the entire screen */
+  background-repeat: no-repeat;  /* No repeating */
+  font-family: 'Quicksand', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #222; /* Dark block for the header */
+  color: #fdd835;
+  font-size: 2rem;
+}
+
+.header button{
+  margin-left: 10px;
+}
+
+.header .button-container {
+  display: flex;
+  align-items: center;
+}
+
+.header .login-btn {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background-color: #fdd835;
+  border: none;
+  color: #222;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header .login-btn:hover {
+  background-color: #ffcc00;
+}
+
+
+h1, h2, h3, h4, h5 {
+  color: #FFD700;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+button, .btn {
+  background: linear-gradient(135deg, #FFD700, #FFBB00); /* Gradient button */
+  color: #000000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+  transition: background 0.3s ease, transform 0.2s ease; /* Smooth transition on hover */
+}
+
+button:hover, .btn:hover {
+  background: linear-gradient(135deg, #FFBB00, #FFD700);
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.table th, .table td {
+  color: #FFD700;
+  border-color: #333333;
+  transition: color 0.3s ease;
+}
+
+.table thead th {
+  background-color: #333333;
+}
+
+.card {
+  background: linear-gradient(135deg, #333333, #111111); /* Gradient card */
+  border: 1px solid #FFD700;
+  color: #FFD700;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.card-title {
+  color: #FFD700;
+}
+
+.navbar {
+  background-color: #000000;
+  border-bottom: 2px solid #FFD700;
+}
+
+.nav-link {
+  color: #FFD700;
+}
+
+.nav-link:hover {
+  color: #FFBB00;
+}
+
+.footer {
+  background-color: #000000;
+  color: #FFD700;
+  padding: 10px 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+.project-detail-container {
+  background-color: #222; /* Dark background for the card */
+  color: #f5f5f5; /* Light text for contrast */
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 50px auto; /* Center and give top margin */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+}
+
+.project-detail-container h2 {
+  color: #fdd835; /* Yellow to match the design */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.project-detail-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.project-detail-container ul li {
+  margin-bottom: 10px;
+  font-size: 1.1rem; /* Larger text for better readability */
+}
+
+.project-detail-container ul li strong {
+  color: #fdd835; /* Yellow highlight */
+}
+
+.join-slack-btn {
+  display: block;
+  background-color: #fdd835; /* Matching yellow */
+  color: #222;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.join-slack-btn:hover {
+  background-color: #ffcc00; /* Slight hover effect */
+}
+
+.delete-project-btn{
+  display: block;
+  background-color: #fdd835; /* Matching yellow */
+  color: #222;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.auth-container {
+  background: linear-gradient(135deg, #8b0000, #3b0000);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 100px;
+  align-items: center;
+  color: white;
+}
+
+.auth-container .form-div {
+  background-color: #222;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.auth-container h2 {
+  color: #fdd835;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.auth-container input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.auth-container button {
+  padding: 10px;
+  background-color: #fdd835;
+  border: none;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.auth-container button:hover {
+  background-color: #ffcc00;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+.signup-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #fdd835;
+  border: none;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.signup-btn:hover {
+  background-color: #ffcc00;
+}
+
+.create-project-container {
+  background: linear-gradient(135deg, #8b0000, #3b0000);
+  padding: 20px;
+  max-width: 600px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.create-project-container input, .create-project-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.create-project-container button {
+  padding: 10px 20px;
+  background-color: #fdd835;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-project-container button:hover {
+  background-color: #ffcc00;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [error, setError] = useState(null);
+  const [isLeadOrAdmin, setIsLeadOrAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -16,6 +17,24 @@ const ProjectDetail = () => {
         }
         const data = await response.json();
         setProject(data);
+
+        // Check if the user is logged in and get user info
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setIsLeadOrAdmin(false);
+          return;  // Exit if no token found
+        }
+
+        // Check if the logged-in user is the project lead or admin
+        const userInfoResponse = await fetch('http://127.0.0.1:5000/api/auth/user-info', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const userInfo = await userInfoResponse.json();
+        
+        if (userInfo.id === data.created_by || userInfo.role === 'admin') {
+          setIsLeadOrAdmin(true);
+        } 
+
       } catch (err) {
         setError(err.message);
       }
@@ -23,6 +42,50 @@ const ProjectDetail = () => {
 
     fetchProject();
   }, [id]);
+
+  const handleDeleteProject = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/api/projects/delete/${project.id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        alert('Project deleted successfully');
+        navigate('/');
+      } else {
+        alert('Failed to delete project');
+      }
+    } catch (err) {
+      alert('An error occurred. Please try again later.');
+    }
+  };
+
+  const handleJoinSlack = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You must be logged in to join Slack.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/api/projects/slack/${project.id}`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      if (data.slack_link) {
+        window.open(data.slack_link, '_blank', 'noreferrer');
+      } else {
+        alert('Error fetching Slack invite link');
+      }
+    } catch (err) {
+      alert('An error occurred. Please try again later.');
+    }
+  };
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -33,7 +96,7 @@ const ProjectDetail = () => {
   }
 
   return (
-    <div className="container">
+    <div className="project-detail-container">
       <h2>{project.title}</h2>
       <ul>
         <li><strong>Description:</strong> {project.description}</li>
@@ -42,16 +105,22 @@ const ProjectDetail = () => {
           <ul>
             {project.members.map((member, index) => (
               <li key={index}>
-                {member.name} ({member.role}) - {member.email}
+                {member.name} - {member.email}
               </li>
             ))}
           </ul>
         </li>
-        <li><strong>Member Count:</strong> {project.members_count}</li>
+        <li><strong>Purpose:</strong> {project.purpose}</li>
       </ul>
-      <Button variant="primary" onClick={() => alert('Join Slack functionality will be implemented later.')}>
+      <button className="join-slack-btn" onClick={handleJoinSlack}>
         Join Slack
-      </Button>
+      </button>
+
+      {isLeadOrAdmin && (
+        <button className="delete-project-btn" onClick={handleDeleteProject}>
+          Delete Project
+        </button>
+      )}
     </div>
   );
 };
