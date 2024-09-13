@@ -23,7 +23,7 @@ const Signup = () => {
       if (data.message) {
         window.location.href = '/login';  // Redirect to login after successful signup
       } else {
-        setError('Something went wrong. Please try again.');
+        setError(`${data.error}`);
       }
     } catch (error) {
       setError('Something went wrong. Please try again later.');

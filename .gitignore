@@ -5,6 +5,7 @@ __pycache__/
 .env
 .DS_Store
 /.vscode
+test.py
 
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.

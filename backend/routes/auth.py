@@ -4,6 +4,16 @@ from models import db, AppUser
 
 auth_bp = Blueprint('auth', __name__)
 
+
+
+@auth_bp.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)  # Requires the refresh token
+def refresh_token():
+    user_id = get_jwt_identity()
+    new_access_token = create_access_token(identity=user_id)
+    
+    return jsonify({"access_token": new_access_token}), 200
+
 # Signup route
 @auth_bp.route('/signup', methods=['POST'])
 def signup():

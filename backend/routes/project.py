@@ -1,13 +1,34 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import db, Project, AppUser
+import requests
 
 project_bp = Blueprint('project', __name__)
 
+
+def send_slack_message(project_title, creator_name, project_purpose, description):
+    url = "https://hooks.slack.com/services/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"
+
+    slack_data = {
+        "text": f"New Project Created: *{project_title}*\nDescription: {description}\nCreated by: {creator_name}\nPurpose: {project_purpose}"
+    }
+
+    try:
+        response = requests.post(url, json=slack_data)
+        response.raise_for_status() #If bad status code then raises error
+    except Exception as e:
+        print(f"Error sending slack message: {e}")
+
+
+
 # Add new project
-@project_bp.route('/add', methods=['POST'])
+@project_bp.route('/add', methods=['POST', 'OPTIONS'])
 @jwt_required()  # Ensure the user is authenticated
 def create_project():
+
+    if request.method == 'OPTIONS':
+        return jsonify({'status': 'OK'}), 200  # Handle preflight requests
+
     user_id = get_jwt_identity()  # Get the logged-in user's ID
     data = request.get_json()
 
@@ -39,6 +60,8 @@ def create_project():
     # Add the project to the database
     db.session.add(new_project)
     db.session.commit()
+
+    send_slack_message(project_title=title, creator_name=creator.name, project_purpose=purpose, description=description)
 
     return jsonify({"message": "Project created successfully", "project_id": new_project.id}), 201
 

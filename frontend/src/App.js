@@ -5,8 +5,39 @@ import ProjectDetail from './components/ProjectDetail';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import CreateProject from './components/CreateProject'; 
+import { isTokenExpired, isTokenNearExpiry, refreshToken } from './utils';
+import { useEffect } from 'react';
 
 const App = () => {
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = localStorage.getItem('token');
+      if (!token || isTokenExpired(token)) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('token');
+        window.location.href = '/login';  // Redirect to login if token is expired
+      } else if (isTokenNearExpiry(token)) {
+        // If token is about to expire, refresh it
+        const refreshed = await refreshToken();
+        if (!refreshed) {
+          alert('Failed to refresh token. Please log in again.');
+          window.location.href = '/login';   // Redirect to login if token cannot be refreshed
+        }
+      }
+    };
+
+    
+    // Check token expiration every 5 minutes (300000 ms)
+    const intervalId = setInterval(checkToken, 300000);  // 5 minutes
+    if (window.location.href.slice(-6) !== '/login'){
+      
+      checkToken();  // Run on initial load
+    }
+
+    return () => clearInterval(intervalId);  // Clean up interval on component unmount
+  }, []);
+
   const isLoggedIn = !!localStorage.getItem('token');
 
   const handleLogout = () => {
