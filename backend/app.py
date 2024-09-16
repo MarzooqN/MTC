@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
@@ -13,6 +13,13 @@ app.config.from_object(Config)
 db.init_app(app)
 jwt = JWTManager(app)
 CORS(app)
+
+@jwt.expired_token_loader
+def expired_token_callback():
+    return jsonify({
+        "error": "Token has expired",
+        "message": "Please log in again."
+    }), 401
 
 # Import routes
 from routes.auth import auth_bp

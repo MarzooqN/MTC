@@ -38,6 +38,14 @@ const CreateProject = () => {
         body: JSON.stringify(projectData),
       });
 
+      // Check for token expiration or invalid token
+      if (response.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('token');
+        navigate('/login');  // Redirect to login
+        return;
+      }
+
       const data = await response.json();
 
       if (response.ok) {

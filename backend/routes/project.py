@@ -2,13 +2,16 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models import db, Project, AppUser
 import requests
-import variables
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 project_bp = Blueprint('project', __name__)
 
 
 def send_slack_message(project_title, creator_name, project_purpose, description):
-    url = variables.SLACK_URL
+    url = os.getenv('SLACK_URL')
 
     slack_data = {
         "text": f"New Project Created: *{project_title}*\nDescription: {description}\nCreated by: {creator_name}\nPurpose: {project_purpose}"

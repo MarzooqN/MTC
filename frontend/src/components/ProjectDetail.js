@@ -51,6 +51,15 @@ const ProjectDetail = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      // Check for token expiration or invalid token
+      if (response.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('token');
+        navigate('/login');  // Redirect to login
+        return;
+      }
+
+
       if (response.ok) {
         alert('Project deleted successfully');
         navigate('/');
@@ -75,6 +84,14 @@ const ProjectDetail = () => {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      // Check for token expiration or invalid token
+      if (response.status === 401) {
+        alert('Your session has expired. Please log in again.');
+        localStorage.removeItem('token');
+        navigate('/login');  // Redirect to login
+        return;
+      }
 
       const data = await response.json();
       if (data.slack_link) {
