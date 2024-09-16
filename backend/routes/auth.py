@@ -4,8 +4,6 @@ from models import db, AppUser
 
 auth_bp = Blueprint('auth', __name__)
 
-
-
 @auth_bp.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)  # Requires the refresh token
 def refresh_token():

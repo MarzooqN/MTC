@@ -1,26 +1,17 @@
-from flask import Flask, jsonify, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, jsonify
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from models import db
 from config import Config
 
 # Create Flask app
-app = Flask(__name__, static_folder='../build', static_url_path='/', template_folder='../build')
+app = Flask(__name__)
 app.config.from_object(Config)
 
 # Initialize extensions
 db.init_app(app)
 jwt = JWTManager(app)
 CORS(app)
-
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
-
-@app.errorhandler(404)
-def not_found(e):
-    return send_from_directory(app.static_folder, 'index.html')
 
 @jwt.expired_token_loader
 def expired_token_callback():
