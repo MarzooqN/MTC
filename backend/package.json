@@ -1,7 +1,0 @@
-{
-    "name": "backend",
-    "scripts": {
-      "heroku-postbuild": "cd ../frontend && npm install && npm run build && mv build ../backend/build"
-    }
-  }
-  
