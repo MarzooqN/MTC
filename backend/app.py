@@ -5,15 +5,14 @@ from models import db
 from config import Config
 
 # Create Flask app
-app = Flask(__name__)
+# app = Flask(__name__)
+app = Flask(__name__, static_folder='build', static_url_path='')
 app.config.from_object(Config)
 
 # Initialize extensions
 db.init_app(app)
 jwt = JWTManager(app)
 CORS(app)
-
-app = Flask(__name__, static_folder='build', static_url_path='')
 
 @app.route('/')
 def serve():
