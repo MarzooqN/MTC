@@ -5,7 +5,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 cryptography==43.0.1
 dotenv-python==0.0.1
-Flask==2.9.5
+Flask==2.3.3
 Flask-Cors==5.0.0
 flask_jwt_extended==4.4.4
 Flask-SQLAlchemy==3.1.1
