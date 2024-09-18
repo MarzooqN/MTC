@@ -29,7 +29,7 @@ const CreateProject = () => {
     };
 
     try {
-      const response = await fetch('/api/projects/add', {
+      const response = await fetch('https://mtc-l08s.onrender.com/api/projects/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

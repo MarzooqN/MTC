@@ -6,7 +6,7 @@ const ProjectList = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const response = await fetch('/api/projects');
+      const response = await fetch('https://mtc-l08s.onrender.com/api/projects');
       const data = await response.json();
       setProjects(data);
       console.log(data)
