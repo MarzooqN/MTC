@@ -30,8 +30,8 @@ def expired_token_callback():
     }), 401
 
 # Import routes
-from routes.auth import auth_bp
-from routes.project import project_bp
+from backend.routes.auth import auth_bp
+from backend.routes.project import project_bp
 
 # Register Blueprints
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
