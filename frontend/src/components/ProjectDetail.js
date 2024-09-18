@@ -11,7 +11,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/projects/${id}`);
+        const response = await fetch(`/api/projects/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch project details');
         }
@@ -26,7 +26,7 @@ const ProjectDetail = () => {
         }
 
         // Check if the logged-in user is the project lead or admin
-        const userInfoResponse = await fetch('http://127.0.0.1:5000/api/auth/user-info', {
+        const userInfoResponse = await fetch('/api/auth/user-info', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const userInfo = await userInfoResponse.json();
@@ -46,7 +46,7 @@ const ProjectDetail = () => {
   const handleDeleteProject = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/projects/delete/${project.id}`, {
+      const response = await fetch(`/api/projects/delete/${project.id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -80,7 +80,7 @@ const ProjectDetail = () => {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/api/projects/slack/${project.id}`, {
+      const response = await fetch(`/api/projects/slack/${project.id}`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       });
