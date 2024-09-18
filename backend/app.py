@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, send_from_directory
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from models import db
-from config import Config
+from backend.models import db
+from backend.config import Config
 
 # Create Flask app
 app = Flask(__name__)
