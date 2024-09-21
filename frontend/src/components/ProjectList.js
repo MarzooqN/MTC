@@ -15,7 +15,7 @@ const ProjectList = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container mx-3">
       <div className="row">
         {projects.map(project => (
           <div className="col-md-4" key={project.id}>

@@ -21,7 +21,7 @@ def signup():
 
     # Validate email
     if not email.endswith('@buckeyemail.osu.edu'):
-        return jsonify({"error": "Invalid email domain"}), 400
+        return jsonify({"error": "Invalid email domain: Please use buckeyemail.osu.edu"}), 400
 
     if AppUser.query.filter_by(email=email).first():
         return jsonify({"error": "User already exists"}), 400

@@ -16,8 +16,8 @@ const App = () => {
 
   return (
     <Router>
-      <div className="app-container">
-        <header className="header">
+      <div className="app-container p-2">
+        <header className="header rounded-4 shadow-lg py-4">
           <h1>MTC Projects</h1>
           <div className='button-container'>
             {!isLoggedIn && (
@@ -36,13 +36,16 @@ const App = () => {
           </div>
         </header>
 
-        <Routes>
-          <Route path="/" element={<ProjectList />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/create-project" element={<CreateProject />} />  {/* Protected route for project creation */}
-        </Routes>
+        <div className='bg-gradient p-3 rounded-4 shadow-lg mt-1'>
+
+          <Routes>
+            <Route path="/" element={<ProjectList />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/create-project" element={<CreateProject />} />  {/* Protected route for project creation */}
+          </Routes>
+        </div>
       </div>
     </Router>
   );
