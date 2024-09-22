@@ -98,6 +98,11 @@ const Auth = () => {
           </form>
         </div>
 
+        <div className="info-text login">
+            <h2 className="animation" style={{ '--i': 0, '--j': 20 }}>Welcome Back!</h2>
+            <p className="animation" style={{ '--i': 1, '--j': 21 }}>Please Use Your Buckeyemail.osu.edu email!</p>
+        </div>
+
         <div className="form-box register">
           <h2 className="title animation" style={{ '--i': 17, '--j': 0 }}>Sign Up</h2>
           <form onSubmit={handleSignup}>
@@ -140,9 +145,9 @@ const Auth = () => {
         </div>
      
 
-      <div className={`info-text ${isLogin ? 'login' : 'register'}`}>
-        <h2 className="animation" style={{ '--i': 0, '--j': 20 }}>Welcome Back!</h2>
-        <p className="animation" style={{ '--i': 1, '--j': 21 }}>Please Use Your Buckeyemail.osu.edu email!</p>
+      <div className="info-text register">
+        <h2 className="animation" style={{ '--i': 17, '--j': 0 }}>Welcome Back!</h2>
+        <p className="animation" style={{ '--i': 18, '--j': 1 }}>Please Use Your Buckeyemail.osu.edu email!</p>
       </div>
     </div>
     </div>
