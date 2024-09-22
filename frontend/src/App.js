@@ -2,9 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
-import Login from './components/Login';
-import Signup from './components/Signup';
 import CreateProject from './components/CreateProject'; 
+import Auth from './components/Auth';
 
 const App = () => {
   const isLoggedIn = !!localStorage.getItem('token');  // Check if the user is logged in
@@ -17,11 +16,15 @@ const App = () => {
   return (
     <Router>
       <div className="app-container p-2">
+
+      {window.location.href.slice(-5) !== '/auth' && (
+
+
         <header className="header rounded-4 shadow-lg py-4">
           <h1>MTC Projects</h1>
           <div className='button-container'>
             {!isLoggedIn && (
-              <button className="login-btn" onClick={() => window.location.href = '/login'}>
+              <button className="login-btn" onClick={() => window.location.href = '/auth'}>
                 Login
               </button>
             )}
@@ -36,13 +39,16 @@ const App = () => {
           </div>
         </header>
 
-        <div className='bg-gradient p-3 rounded-4 shadow-lg mt-1'>
+        )}
+
+        <div className='rounded-4 mt-1'>
 
           <Routes>
             <Route path="/" element={<ProjectList />} />
             <Route path="/projects/:id" element={<ProjectDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            {/* <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} /> */}
+            <Route path="/auth" element={<Auth />} />
             <Route path="/create-project" element={<CreateProject />} />  {/* Protected route for project creation */}
           </Routes>
         </div>

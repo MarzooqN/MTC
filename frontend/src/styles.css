@@ -1,14 +1,15 @@
 /* Font from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 
 body {
   margin: 0;
   padding: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #8b0000, #3b0000);  /* Modify gradient as needed */
+  background: linear-gradient(135deg, #b90505, #2a0101);  /* Modify gradient as needed */
   background-size: cover;  /* Ensure it covers the entire screen */
   background-repeat: no-repeat;  /* No repeating */
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .header {
