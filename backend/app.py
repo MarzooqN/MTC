@@ -23,7 +23,7 @@ CORS(app)
 #     return send_from_directory(app.static_folder, 'index.html')
 
 @jwt.expired_token_loader
-def expired_token_callback():
+def expired_token_callback(header, payload):
     return jsonify({
         "error": "Token has expired",
         "message": "Please log in again."
