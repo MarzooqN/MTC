@@ -55,7 +55,7 @@ const ProjectDetail = () => {
       if (response.status === 401) {
         alert('Your session has expired. Please log in again.');
         localStorage.removeItem('token');
-        navigate('/login');  // Redirect to login
+        navigate('/auth');  // Redirect to login
         return;
       }
 
@@ -75,7 +75,7 @@ const ProjectDetail = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('You must be logged in to join Slack.');
-      navigate('/login');
+      navigate('/auth');
       return;
     }
 
@@ -89,7 +89,7 @@ const ProjectDetail = () => {
       if (response.status === 401) {
         alert('Your session has expired. Please log in again.');
         localStorage.removeItem('token');
-        navigate('/login');  // Redirect to login
+        navigate('/auth');  // Redirect to login
         return;
       }
 

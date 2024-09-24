@@ -15,7 +15,7 @@ const CreateProject = () => {
     const token = localStorage.getItem('token');
     if (!token) {
       alert('You must be logged in to create a project.');
-      navigate('/login');
+      navigate('/auth');
       return;
     }
 
@@ -40,7 +40,7 @@ const CreateProject = () => {
       if (response.status === 401) {
         alert('Your session has expired. Please log in again.');
         localStorage.removeItem('token');
-        navigate('/login');  // Redirect to login
+        navigate('/auth');  // Redirect to login
         return;
       }
 

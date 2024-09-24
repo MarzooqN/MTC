@@ -26,7 +26,6 @@ def send_slack_message(project_title, creator_name, project_purpose, description
 def create_new_channel(project_title: str):
 
     channel_name = project_title.lower().replace(" ", "-")
-    print(channel_name)
 
     url = 'https://slack.com/api/conversations.create'
 
@@ -45,7 +44,6 @@ def create_new_channel(project_title: str):
         response = requests.post(url, json=data, headers=headers)
         response.raise_for_status()
         json = response.json()
-        print(json)
         return json['channel']['id']
         
     except Exception as e:
@@ -101,7 +99,7 @@ def create_project():
     db.session.add(new_project)
     db.session.commit()
 
-    # send_slack_message(project_title=title, creator_name=creator.name, project_purpose=purpose, description=description)
+    send_slack_message(project_title=title, creator_name=creator.name, project_purpose=purpose, description=description)
 
     return jsonify({"message": "Project created successfully", "project_id": new_project.id}), 201
 
