@@ -23,6 +23,36 @@ def send_slack_message(project_title, creator_name, project_purpose, description
     except Exception as e:
         print(f"Error sending slack message: {e}")
 
+def create_new_channel(project_title: str):
+
+    channel_name = project_title.lower().replace(" ", "-")
+    print(channel_name)
+
+    url = 'https://slack.com/api/conversations.create'
+
+    token = os.getenv('SLACK_BOT_TOKEN')
+
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": f"Bearer {token}"
+    }
+
+    data = {
+        "name": f"{channel_name}-project",
+    }
+
+    try:
+        response = requests.post(url, json=data, headers=headers)
+        response.raise_for_status()
+        json = response.json()
+        print(json)
+        return json['channel']['id']
+        
+    except Exception as e:
+        print(f"Error creating slack channel: {e}")
+        return e
+
+
 
 
 # Add new project
@@ -40,8 +70,14 @@ def create_project():
     title = data.get('title')
     description = data.get('description')
     languages = data.get('languages')
-    slack_link = data.get('slack_link')
     purpose = data.get('purpose')
+
+
+    id = create_new_channel(title)
+    if type(id) != str :
+        return jsonify({"error": "Error creating channel"}), 400
+    
+    slack_link = f'https://mtcohiostate.slack.com/archives/{id}'
 
     # Check for missing fields
     if not title or not description or not languages or not slack_link or not purpose:
@@ -65,7 +101,7 @@ def create_project():
     db.session.add(new_project)
     db.session.commit()
 
-    send_slack_message(project_title=title, creator_name=creator.name, project_purpose=purpose, description=description)
+    # send_slack_message(project_title=title, creator_name=creator.name, project_purpose=purpose, description=description)
 
     return jsonify({"message": "Project created successfully", "project_id": new_project.id}), 201
 

@@ -5,7 +5,6 @@ const CreateProject = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [languages, setLanguages] = useState('');
-  const [slackLink, setSlackLink] = useState('');
   const [purpose, setPurpose] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -24,7 +23,6 @@ const CreateProject = () => {
       title,
       description,
       languages,
-      slack_link: slackLink,
       purpose,
     };
 
@@ -81,13 +79,6 @@ const CreateProject = () => {
           placeholder="Languages/Frameworks"
           value={languages}
           onChange={(e) => setLanguages(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Slack Link"
-          value={slackLink}
-          onChange={(e) => setSlackLink(e.target.value)}
           required
         />
         <input
