@@ -4,6 +4,8 @@ import ProjectList from './components/ProjectList';
 import ProjectDetail from './components/ProjectDetail';
 import CreateProject from './components/CreateProject'; 
 import Auth from './components/Auth';
+import TeamList from './components/TeamList';
+import CreateTeam from './components/CreateTeam';
 
 const App = () => {
   const isLoggedIn = !!localStorage.getItem('token');  // Check if the user is logged in
@@ -31,9 +33,26 @@ const App = () => {
             {isLoggedIn && (
               <>
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
+
+                {window.location.href.slice(-1) === '/' ? 
                 <button className="create-project-btn" onClick={() => window.location.href = '/create-project'}>
                   Create Project
                 </button>
+                :
+                <button className="view-project-btn" onClick={() => window.location.href = '/'}>
+                View Projects
+                </button>
+
+                }
+                {window.location.href.slice(-6) === '/teams' ?
+                <button className="create-team-btn" onClick={() => window.location.href = '/create-team'}>
+                  Create HackOHIO Team
+                </button>
+                :
+                <button className="view-team-btn" onClick={() => window.location.href = '/teams'}>
+                  View HackOHIO Team
+                </button>
+                }
               </>
             )}
           </div>
@@ -49,7 +68,9 @@ const App = () => {
             {/* <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} /> */}
             <Route path="/auth" element={<Auth />} />
-            <Route path="/create-project" element={<CreateProject />} />  {/* Protected route for project creation */}
+            <Route path="/create-project" element={<CreateProject />} />  
+            <Route path="/teams" element={<TeamList />} />
+            <Route path="/create-team" element={<CreateTeam />} />
           </Routes>
         </div>
       </div>

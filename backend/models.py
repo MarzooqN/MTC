@@ -38,3 +38,15 @@ class Project(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('app_user.id'), nullable=False)
 
     creator = db.relationship('AppUser', backref='created_projects')
+
+class HackathonTeam(db.Model):
+    __tablename__ = 'hackathon_teams'
+    id = db.Column(db.Integer, primary_key=True)
+    team_name = db.Column(db.String(255), nullable=False)
+    members = db.relationship('AppUser', secondary='team_members', backref='teams')
+
+class TeamMember(db.Model):
+    __tablename__ = 'team_members'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('app_user.id'))
+    team_id = db.Column(db.Integer, db.ForeignKey('hackathon_teams.id'))

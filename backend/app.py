@@ -32,10 +32,12 @@ def expired_token_callback(header, payload):
 # Import routes
 from backend.routes.auth import auth_bp
 from backend.routes.project import project_bp
+from backend.routes.team import team_bp
 
 # Register Blueprints
 app.register_blueprint(auth_bp, url_prefix='/api/auth')
 app.register_blueprint(project_bp, url_prefix='/api/projects')
+app.register_blueprint(team_bp, url_prefix='/api/teams')
 
 # Run the app
 if __name__ == '__main__':
